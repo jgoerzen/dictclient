@@ -152,6 +152,34 @@ class Connection:
                                      resultword, defstr))
         return retval
 
+    def match(self, database, strategy, word):
+        self.getstratdescs()            # Prime the cache
+        self.getdbdescs()               # Prime the cache
+        if not strategy in self.getstratdescs().keys():
+            raise Exception, "Invalid strategy '%s'" % strategy
+        if database != '*' and database != '!' and \
+               not database in self.getdbdescs().keys():
+            raise Exception, "Invalid database name '%s'" % database
+
+        self.sendcommand("MATCH %s %s %s" % (enquote(database),
+                                             enquote(strategy),
+                                             enquote(word)))
+        code = self.getresultcode()[0]
+        if code == 552:
+            # No Matches
+            return []
+        if code != 152:
+            raise Exception, "Unexpected code %d" % code
+
+        retval = []
+
+        for matchline in self.get100block().split("\n"):
+            matchdict, matchword = matchline.split(" ")
+            retval.append(Definition(self, self.getdbobj(matchdict),
+                                     dequote(matchword)))
+        if self.getresultcode()[0] != 250:
+            raise Exception, "Unexpected end-of-list code %d" % code
+        return retval
 
 class Database:
     def __init__(self, dictconn, dbname):
@@ -175,6 +203,12 @@ class Database:
         self.conn.sendcommand("SHOW INFO " + self.name)
         self.info = "\n".join(self.conn.get100result()[1])
         return self.info
+
+    def define(self, word):
+        return self.conn.define(self.getname(), word)
+
+    def match(self, strategy, word):
+        return self.conn.match(self.getname(), strategy, word)
 
 class Definition:
     def __init__(self, dictconn, db, word, defstr = None):
