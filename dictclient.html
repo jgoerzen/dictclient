@@ -1,0 +1,233 @@
+
+<!doctype html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module dictclient</title>
+<style type="text/css"><!--
+TT { font-family: lucidatypewriter, lucida console, courier }
+--></style></head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>dictclient</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/jgoerzen/tree/dictclient/dictclient.py">/home/jgoerzen/tree/dictclient/dictclient.py</a></font></td></tr></table>
+    <p><tt>#&nbsp;Client&nbsp;for&nbsp;the&nbsp;DICT&nbsp;protocol&nbsp;(<a href="http://www.rfc-editor.org/rfc/rfc2229.txt">RFC2229</a>)<br>
+#<br>
+#&nbsp;Copyright&nbsp;(C)&nbsp;2002&nbsp;John&nbsp;Goerzen<br>
+#<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;program&nbsp;is&nbsp;free&nbsp;software;&nbsp;you&nbsp;can&nbsp;redistribute&nbsp;it&nbsp;and/or&nbsp;modify<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;it&nbsp;under&nbsp;the&nbsp;terms&nbsp;of&nbsp;the&nbsp;GNU&nbsp;General&nbsp;Public&nbsp;License&nbsp;as&nbsp;published&nbsp;by<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;Free&nbsp;Software&nbsp;Foundation;&nbsp;either&nbsp;version&nbsp;2&nbsp;of&nbsp;the&nbsp;License,&nbsp;or<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;(at&nbsp;your&nbsp;option)&nbsp;any&nbsp;later&nbsp;version.<br>
+#<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;program&nbsp;is&nbsp;distributed&nbsp;in&nbsp;the&nbsp;hope&nbsp;that&nbsp;it&nbsp;will&nbsp;be&nbsp;useful,<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;but&nbsp;WITHOUT&nbsp;ANY&nbsp;WARRANTY;&nbsp;without&nbsp;even&nbsp;the&nbsp;implied&nbsp;warranty&nbsp;of<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;MERCHANTABILITY&nbsp;or&nbsp;FITNESS&nbsp;FOR&nbsp;A&nbsp;PARTICULAR&nbsp;PURPOSE.&nbsp;&nbsp;See&nbsp;the<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;GNU&nbsp;General&nbsp;Public&nbsp;License&nbsp;for&nbsp;more&nbsp;details.<br>
+#<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;You&nbsp;should&nbsp;have&nbsp;received&nbsp;a&nbsp;copy&nbsp;of&nbsp;the&nbsp;GNU&nbsp;General&nbsp;Public&nbsp;License<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;along&nbsp;with&nbsp;this&nbsp;program;&nbsp;if&nbsp;not,&nbsp;write&nbsp;to&nbsp;the&nbsp;Free&nbsp;Software<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;Foundation,&nbsp;Inc.,&nbsp;59&nbsp;Temple&nbsp;Place,&nbsp;Suite&nbsp;330,&nbsp;Boston,&nbsp;MA&nbsp;&nbsp;02111-1307&nbsp;&nbsp;USA</tt></p>
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#fffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="re.html">re</a><br>
+</td><td width="25%" valign=top><a href="socket.html">socket</a><br>
+</td><td width="25%" valign=top></td><td width="25%" valign=top></td></tr></table></td></tr></table>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="dictclient.html#Connection">Connection</a>
+</font></dt><dt><font face="helvetica, arial"><a href="dictclient.html#Database">Database</a>
+</font></dt><dt><font face="helvetica, arial"><a href="dictclient.html#Definition">Definition</a>
+</font></dt></dl>
+ 
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="Connection">class <strong>Connection</strong></a></font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>This&nbsp;class&nbsp;is&nbsp;used&nbsp;to&nbsp;establish&nbsp;a&nbsp;connection&nbsp;to&nbsp;a&nbsp;database&nbsp;server.<br>
+You&nbsp;will&nbsp;usually&nbsp;use&nbsp;this&nbsp;as&nbsp;the&nbsp;first&nbsp;call&nbsp;into&nbsp;the&nbsp;dictclient&nbsp;library.<br>
+Instantiating&nbsp;it&nbsp;takes&nbsp;two&nbsp;optional&nbsp;arguments:&nbsp;a&nbsp;hostname&nbsp;(a&nbsp;string)<br>
+and&nbsp;a&nbsp;port&nbsp;(an&nbsp;int).&nbsp;&nbsp;The&nbsp;hostname&nbsp;defaults&nbsp;to&nbsp;localhost<br>
+and&nbsp;the&nbsp;port&nbsp;to&nbsp;2628,&nbsp;the&nbsp;port&nbsp;specified&nbsp;in&nbsp;RFC.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="Connection-__init__"><strong>__init__</strong></a>(self, hostname<font color="#909090">='localhost'</font>, port<font color="#909090">=2628</font>)</dt></dl>
+
+<dl><dt><a name="Connection-define"><strong>define</strong></a>(self, database, word)</dt><dd><tt>Returns&nbsp;a&nbsp;list&nbsp;of&nbsp;<a href="#Definition">Definition</a>&nbsp;objects&nbsp;for&nbsp;each&nbsp;matching<br>
+definition.&nbsp;&nbsp;Parameters&nbsp;are&nbsp;the&nbsp;database&nbsp;name&nbsp;and&nbsp;the&nbsp;word<br>
+to&nbsp;look&nbsp;up.&nbsp;&nbsp;This&nbsp;is&nbsp;one&nbsp;of&nbsp;the&nbsp;main&nbsp;functions&nbsp;you&nbsp;will&nbsp;use<br>
+to&nbsp;interact&nbsp;with&nbsp;the&nbsp;server.&nbsp;&nbsp;Returns&nbsp;a&nbsp;list&nbsp;of&nbsp;<a href="#Definition">Definition</a><br>
+objects.&nbsp;&nbsp;If&nbsp;there&nbsp;are&nbsp;no&nbsp;matches,&nbsp;an&nbsp;empty&nbsp;list&nbsp;is&nbsp;returned.<br>
+&nbsp;<br>
+Note:&nbsp;database&nbsp;may&nbsp;be&nbsp;'*'&nbsp;which&nbsp;means&nbsp;to&nbsp;search&nbsp;all&nbsp;databases,<br>
+or&nbsp;'!'&nbsp;which&nbsp;means&nbsp;to&nbsp;return&nbsp;matches&nbsp;from&nbsp;the&nbsp;first&nbsp;database&nbsp;that<br>
+has&nbsp;a&nbsp;match.</tt></dd></dl>
+
+<dl><dt><a name="Connection-get100block"><strong>get100block</strong></a>(self)</dt><dd><tt>Used&nbsp;when&nbsp;expecting&nbsp;multiple&nbsp;lines&nbsp;of&nbsp;text&nbsp;--&nbsp;gets&nbsp;the&nbsp;block<br>
+part&nbsp;only.&nbsp;&nbsp;Does&nbsp;not&nbsp;get&nbsp;any&nbsp;codes&nbsp;or&nbsp;anything!&nbsp;&nbsp;Returns&nbsp;a&nbsp;string.</tt></dd></dl>
+
+<dl><dt><a name="Connection-get100dict"><strong>get100dict</strong></a>(self)</dt><dd><tt>Used&nbsp;when&nbsp;expecting&nbsp;a&nbsp;dictionary&nbsp;of&nbsp;results.&nbsp;&nbsp;Will&nbsp;read&nbsp;from<br>
+the&nbsp;initial&nbsp;100&nbsp;code,&nbsp;to&nbsp;a&nbsp;period&nbsp;and&nbsp;the&nbsp;200&nbsp;code.</tt></dd></dl>
+
+<dl><dt><a name="Connection-get100result"><strong>get100result</strong></a>(self)</dt><dd><tt>Used&nbsp;when&nbsp;expecting&nbsp;multiple&nbsp;lines&nbsp;of&nbsp;text,&nbsp;terminated&nbsp;by&nbsp;a&nbsp;period<br>
+and&nbsp;a&nbsp;200&nbsp;code.&nbsp;&nbsp;Returns:&nbsp;[initialcode,&nbsp;[bodytext_1lineperentry],<br>
+finalcode]</tt></dd></dl>
+
+<dl><dt><a name="Connection-get200result"><strong>get200result</strong></a>(self)</dt><dd><tt>Used&nbsp;when&nbsp;expecting&nbsp;a&nbsp;single&nbsp;line&nbsp;of&nbsp;text&nbsp;--&nbsp;a&nbsp;200-class<br>
+result.&nbsp;&nbsp;Returns&nbsp;[intcode,&nbsp;remaindertext]</tt></dd></dl>
+
+<dl><dt><a name="Connection-getcapabilities"><strong>getcapabilities</strong></a>(self)</dt><dd><tt>Returns&nbsp;a&nbsp;list&nbsp;of&nbsp;the&nbsp;capabilities&nbsp;advertised&nbsp;by&nbsp;the&nbsp;server.</tt></dd></dl>
+
+<dl><dt><a name="Connection-getdbdescs"><strong>getdbdescs</strong></a>(self)</dt><dd><tt>Gets&nbsp;a&nbsp;dict&nbsp;of&nbsp;available&nbsp;databases.&nbsp;&nbsp;The&nbsp;key&nbsp;is&nbsp;the&nbsp;db&nbsp;name<br>
+and&nbsp;the&nbsp;value&nbsp;is&nbsp;the&nbsp;db&nbsp;description.&nbsp;&nbsp;This&nbsp;command&nbsp;may&nbsp;generate<br>
+network&nbsp;traffic!</tt></dd></dl>
+
+<dl><dt><a name="Connection-getdbobj"><strong>getdbobj</strong></a>(self, dbname)</dt><dd><tt>Gets&nbsp;a&nbsp;<a href="#Database">Database</a>&nbsp;object&nbsp;corresponding&nbsp;to&nbsp;the&nbsp;database&nbsp;name&nbsp;passed<br>
+in.&nbsp;&nbsp;This&nbsp;function&nbsp;explicitly&nbsp;will&nbsp;*not*&nbsp;generate&nbsp;network&nbsp;traffic.<br>
+If&nbsp;you&nbsp;have&nbsp;not&nbsp;yet&nbsp;run&nbsp;<a href="#Connection-getdbdescs">getdbdescs</a>(),&nbsp;it&nbsp;will&nbsp;fail.</tt></dd></dl>
+
+<dl><dt><a name="Connection-getmessageid"><strong>getmessageid</strong></a>(self)</dt><dd><tt>Returns&nbsp;the&nbsp;message&nbsp;id,&nbsp;including&nbsp;angle&nbsp;brackets.</tt></dd></dl>
+
+<dl><dt><a name="Connection-getresultcode"><strong>getresultcode</strong></a>(self)</dt><dd><tt>Generic&nbsp;function&nbsp;to&nbsp;get&nbsp;a&nbsp;result&nbsp;code.&nbsp;&nbsp;It&nbsp;will&nbsp;return&nbsp;a&nbsp;list<br>
+consisting&nbsp;of&nbsp;two&nbsp;items:&nbsp;the&nbsp;integer&nbsp;result&nbsp;code&nbsp;and&nbsp;the&nbsp;text<br>
+following.&nbsp;&nbsp;You&nbsp;will&nbsp;not&nbsp;usually&nbsp;use&nbsp;this&nbsp;function&nbsp;directly.</tt></dd></dl>
+
+<dl><dt><a name="Connection-getstratdescs"><strong>getstratdescs</strong></a>(self)</dt><dd><tt>Gets&nbsp;a&nbsp;dict&nbsp;of&nbsp;available&nbsp;strategies.&nbsp;&nbsp;The&nbsp;key&nbsp;is&nbsp;the&nbsp;strat<br>
+name&nbsp;and&nbsp;the&nbsp;value&nbsp;is&nbsp;the&nbsp;strat&nbsp;description.&nbsp;&nbsp;This&nbsp;call&nbsp;may<br>
+generate&nbsp;network&nbsp;traffic!</tt></dd></dl>
+
+<dl><dt><a name="Connection-match"><strong>match</strong></a>(self, database, strategy, word)</dt><dd><tt>Gets&nbsp;matches&nbsp;for&nbsp;a&nbsp;query.&nbsp;&nbsp;Arguments&nbsp;are&nbsp;database&nbsp;name,<br>
+the&nbsp;strategy&nbsp;(see&nbsp;available&nbsp;ones&nbsp;in&nbsp;<a href="#Connection-getstratdescs">getstratdescs</a>()),&nbsp;and&nbsp;the<br>
+pattern/word&nbsp;to&nbsp;look&nbsp;for.&nbsp;&nbsp;Returns&nbsp;a&nbsp;list&nbsp;of&nbsp;<a href="#Definition">Definition</a>&nbsp;objects.<br>
+If&nbsp;there&nbsp;is&nbsp;no&nbsp;match,&nbsp;an&nbsp;empty&nbsp;list&nbsp;is&nbsp;returned.<br>
+&nbsp;<br>
+Note:&nbsp;database&nbsp;may&nbsp;be&nbsp;'*'&nbsp;which&nbsp;means&nbsp;to&nbsp;search&nbsp;all&nbsp;databases,<br>
+or&nbsp;'!'&nbsp;which&nbsp;means&nbsp;to&nbsp;return&nbsp;matches&nbsp;from&nbsp;the&nbsp;first&nbsp;database&nbsp;that<br>
+has&nbsp;a&nbsp;match.</tt></dd></dl>
+
+<dl><dt><a name="Connection-saveconnectioninfo"><strong>saveconnectioninfo</strong></a>(self)</dt><dd><tt>Called&nbsp;by&nbsp;__init__&nbsp;to&nbsp;handle&nbsp;the&nbsp;initial&nbsp;connection.&nbsp;&nbsp;Will<br>
+save&nbsp;off&nbsp;the&nbsp;capabilities&nbsp;and&nbsp;messageid.</tt></dd></dl>
+
+<dl><dt><a name="Connection-sendcommand"><strong>sendcommand</strong></a>(self, command)</dt><dd><tt>Takes&nbsp;a&nbsp;command,&nbsp;without&nbsp;a&nbsp;newline&nbsp;character,&nbsp;and&nbsp;sends&nbsp;it&nbsp;to<br>
+the&nbsp;server.</tt></dd></dl>
+
+<hr>
+Data and non-method functions defined here:<br>
+<dl><dt><strong>__doc__</strong> = 'This class is used to establish a connection to ... and the port to 2628, the port specified in RFC.'<dd><tt>str(object)&nbsp;-&gt;&nbsp;string<br>
+&nbsp;<br>
+Return&nbsp;a&nbsp;nice&nbsp;string&nbsp;representation&nbsp;of&nbsp;the&nbsp;object.<br>
+If&nbsp;the&nbsp;argument&nbsp;is&nbsp;a&nbsp;string,&nbsp;the&nbsp;return&nbsp;value&nbsp;is&nbsp;the&nbsp;same&nbsp;object.</tt></dl>
+
+<dl><dt><strong>__module__</strong> = 'dictclient'<dd><tt>str(object)&nbsp;-&gt;&nbsp;string<br>
+&nbsp;<br>
+Return&nbsp;a&nbsp;nice&nbsp;string&nbsp;representation&nbsp;of&nbsp;the&nbsp;object.<br>
+If&nbsp;the&nbsp;argument&nbsp;is&nbsp;a&nbsp;string,&nbsp;the&nbsp;return&nbsp;value&nbsp;is&nbsp;the&nbsp;same&nbsp;object.</tt></dl>
+
+</td></tr></table> 
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="Database">class <strong>Database</strong></a></font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>An&nbsp;object&nbsp;corresponding&nbsp;to&nbsp;a&nbsp;particular&nbsp;database&nbsp;in&nbsp;a&nbsp;server.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="Database-__init__"><strong>__init__</strong></a>(self, dictconn, dbname)</dt><dd><tt>Initialize&nbsp;the&nbsp;object&nbsp;--&nbsp;requires&nbsp;a&nbsp;<a href="#Connection">Connection</a>&nbsp;object&nbsp;and<br>
+a&nbsp;database&nbsp;name.</tt></dd></dl>
+
+<dl><dt><a name="Database-define"><strong>define</strong></a>(self, word)</dt><dd><tt>Get&nbsp;a&nbsp;definition&nbsp;from&nbsp;within&nbsp;this&nbsp;database.<br>
+The&nbsp;argument,&nbsp;word,&nbsp;is&nbsp;the&nbsp;word&nbsp;to&nbsp;look&nbsp;up.&nbsp;&nbsp;The&nbsp;return&nbsp;value&nbsp;is&nbsp;the<br>
+same&nbsp;as&nbsp;from&nbsp;<a href="#Connection">Connection</a>.<a href="#Database-define">define</a>().</tt></dd></dl>
+
+<dl><dt><a name="Database-getdescription"><strong>getdescription</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="Database-getinfo"><strong>getinfo</strong></a>(self)</dt><dd><tt>Returns&nbsp;a&nbsp;string&nbsp;of&nbsp;info&nbsp;describing&nbsp;this&nbsp;database.</tt></dd></dl>
+
+<dl><dt><a name="Database-getname"><strong>getname</strong></a>(self)</dt><dd><tt>Returns&nbsp;the&nbsp;short&nbsp;name&nbsp;for&nbsp;this&nbsp;database.</tt></dd></dl>
+
+<dl><dt><a name="Database-match"><strong>match</strong></a>(self, strategy, word)</dt><dd><tt>Get&nbsp;a&nbsp;match&nbsp;from&nbsp;within&nbsp;this&nbsp;database.<br>
+The&nbsp;argument,&nbsp;word,&nbsp;is&nbsp;the&nbsp;word&nbsp;to&nbsp;look&nbsp;up.&nbsp;&nbsp;The&nbsp;return&nbsp;value&nbsp;is<br>
+the&nbsp;same&nbsp;as&nbsp;from&nbsp;<a href="#Connection">Connection</a>.<a href="#Database-define">define</a>().</tt></dd></dl>
+
+<hr>
+Data and non-method functions defined here:<br>
+<dl><dt><strong>__doc__</strong> = 'An object corresponding to a particular database in a server.'<dd><tt>str(object)&nbsp;-&gt;&nbsp;string<br>
+&nbsp;<br>
+Return&nbsp;a&nbsp;nice&nbsp;string&nbsp;representation&nbsp;of&nbsp;the&nbsp;object.<br>
+If&nbsp;the&nbsp;argument&nbsp;is&nbsp;a&nbsp;string,&nbsp;the&nbsp;return&nbsp;value&nbsp;is&nbsp;the&nbsp;same&nbsp;object.</tt></dl>
+
+<dl><dt><strong>__module__</strong> = 'dictclient'<dd><tt>str(object)&nbsp;-&gt;&nbsp;string<br>
+&nbsp;<br>
+Return&nbsp;a&nbsp;nice&nbsp;string&nbsp;representation&nbsp;of&nbsp;the&nbsp;object.<br>
+If&nbsp;the&nbsp;argument&nbsp;is&nbsp;a&nbsp;string,&nbsp;the&nbsp;return&nbsp;value&nbsp;is&nbsp;the&nbsp;same&nbsp;object.</tt></dl>
+
+</td></tr></table> 
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="Definition">class <strong>Definition</strong></a></font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>An&nbsp;object&nbsp;corresponding&nbsp;to&nbsp;a&nbsp;single&nbsp;definition.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="Definition-__init__"><strong>__init__</strong></a>(self, dictconn, db, word, defstr<font color="#909090">=None</font>)</dt><dd><tt>Instantiate&nbsp;the&nbsp;object.&nbsp;&nbsp;Requires:&nbsp;a&nbsp;<a href="#Connection">Connection</a>&nbsp;object,<br>
+a&nbsp;<a href="#Database">Database</a>&nbsp;object&nbsp;(NOT&nbsp;corresponding&nbsp;to&nbsp;'*'&nbsp;or&nbsp;'!'&nbsp;databases),<br>
+a&nbsp;word.&nbsp;&nbsp;Optional:&nbsp;a&nbsp;definition&nbsp;string.&nbsp;&nbsp;If&nbsp;not&nbsp;supplied,<br>
+it&nbsp;will&nbsp;be&nbsp;fetched&nbsp;if/when&nbsp;it&nbsp;is&nbsp;requested.</tt></dd></dl>
+
+<dl><dt><a name="Definition-getdb"><strong>getdb</strong></a>(self)</dt><dd><tt>Get&nbsp;the&nbsp;<a href="#Database">Database</a>&nbsp;object&nbsp;corresponding&nbsp;to&nbsp;this&nbsp;definition.</tt></dd></dl>
+
+<dl><dt><a name="Definition-getdefstr"><strong>getdefstr</strong></a>(self)</dt><dd><tt>Get&nbsp;the&nbsp;definition&nbsp;string&nbsp;(the&nbsp;actual&nbsp;content)&nbsp;of&nbsp;this<br>
+definition.</tt></dd></dl>
+
+<dl><dt><a name="Definition-getword"><strong>getword</strong></a>(self)</dt><dd><tt>Get&nbsp;the&nbsp;word&nbsp;this&nbsp;object&nbsp;describes.</tt></dd></dl>
+
+<hr>
+Data and non-method functions defined here:<br>
+<dl><dt><strong>__doc__</strong> = 'An object corresponding to a single definition.'<dd><tt>str(object)&nbsp;-&gt;&nbsp;string<br>
+&nbsp;<br>
+Return&nbsp;a&nbsp;nice&nbsp;string&nbsp;representation&nbsp;of&nbsp;the&nbsp;object.<br>
+If&nbsp;the&nbsp;argument&nbsp;is&nbsp;a&nbsp;string,&nbsp;the&nbsp;return&nbsp;value&nbsp;is&nbsp;the&nbsp;same&nbsp;object.</tt></dl>
+
+<dl><dt><strong>__module__</strong> = 'dictclient'<dd><tt>str(object)&nbsp;-&gt;&nbsp;string<br>
+&nbsp;<br>
+Return&nbsp;a&nbsp;nice&nbsp;string&nbsp;representation&nbsp;of&nbsp;the&nbsp;object.<br>
+If&nbsp;the&nbsp;argument&nbsp;is&nbsp;a&nbsp;string,&nbsp;the&nbsp;return&nbsp;value&nbsp;is&nbsp;the&nbsp;same&nbsp;object.</tt></dl>
+
+</td></tr></table></td></tr></table>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;&nbsp;</td>
+<td width="100%"><dl><dt><a name="-dequote"><strong>dequote</strong></a>(str)</dt><dd><tt>Will&nbsp;remove&nbsp;single&nbsp;or&nbsp;double&nbsp;quotes&nbsp;from&nbsp;the&nbsp;start&nbsp;and&nbsp;end&nbsp;of&nbsp;a&nbsp;string<br>
+and&nbsp;return&nbsp;the&nbsp;result.</tt></dd></dl>
+ <dl><dt><a name="-enquote"><strong>enquote</strong></a>(str)</dt><dd><tt>This&nbsp;function&nbsp;will&nbsp;put&nbsp;a&nbsp;string&nbsp;in&nbsp;double&nbsp;quotes,&nbsp;properly<br>
+escaping&nbsp;any&nbsp;existing&nbsp;double&nbsp;quotes&nbsp;with&nbsp;a&nbsp;backslash.&nbsp;&nbsp;It&nbsp;will<br>
+return&nbsp;the&nbsp;result.</tt></dd></dl>
+</td></tr></table>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;&nbsp;</td>
+<td width="100%"><strong>__file__</strong> = './dictclient.pyc'<br>
+<strong>__name__</strong> = 'dictclient'<br>
+<strong>version</strong> = '1.0'</td></tr></table>
+</body></html>

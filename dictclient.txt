@@ -1,0 +1,223 @@
+Python Library Documentation: module dictclient
+
+NAME
+    dictclient
+
+FILE
+    /home/jgoerzen/tree/dictclient/dictclient.py
+
+DESCRIPTION
+    # Client for the DICT protocol (RFC2229)
+    #
+    # Copyright (C) 2002 John Goerzen
+    #
+    #    This program is free software; you can redistribute it and/or modify
+    #    it under the terms of the GNU General Public License as published by
+    #    the Free Software Foundation; either version 2 of the License, or
+    #    (at your option) any later version.
+    #
+    #    This program is distributed in the hope that it will be useful,
+    #    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    #    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    #    GNU General Public License for more details.
+    #
+    #    You should have received a copy of the GNU General Public License
+    #    along with this program; if not, write to the Free Software
+    #    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+CLASSES
+    Connection
+    Database
+    Definition
+    
+    class Connection
+     |  This class is used to establish a connection to a database server.
+     |  You will usually use this as the first call into the dictclient library.
+     |  Instantiating it takes two optional arguments: a hostname (a string)
+     |  and a port (an int).  The hostname defaults to localhost
+     |  and the port to 2628, the port specified in RFC.
+     |  
+     |  Methods defined here:
+     |  
+     |  __init__(self, hostname='localhost', port=2628)
+     |  
+     |  define(self, database, word)
+     |      Returns a list of Definition objects for each matching
+     |      definition.  Parameters are the database name and the word
+     |      to look up.  This is one of the main functions you will use
+     |      to interact with the server.  Returns a list of Definition
+     |      objects.  If there are no matches, an empty list is returned.
+     |      
+     |      Note: database may be '*' which means to search all databases,
+     |      or '!' which means to return matches from the first database that
+     |      has a match.
+     |  
+     |  get100block(self)
+     |      Used when expecting multiple lines of text -- gets the block
+     |      part only.  Does not get any codes or anything!  Returns a string.
+     |  
+     |  get100dict(self)
+     |      Used when expecting a dictionary of results.  Will read from
+     |      the initial 100 code, to a period and the 200 code.
+     |  
+     |  get100result(self)
+     |      Used when expecting multiple lines of text, terminated by a period
+     |      and a 200 code.  Returns: [initialcode, [bodytext_1lineperentry],
+     |      finalcode]
+     |  
+     |  get200result(self)
+     |      Used when expecting a single line of text -- a 200-class
+     |      result.  Returns [intcode, remaindertext]
+     |  
+     |  getcapabilities(self)
+     |      Returns a list of the capabilities advertised by the server.
+     |  
+     |  getdbdescs(self)
+     |      Gets a dict of available databases.  The key is the db name
+     |      and the value is the db description.  This command may generate
+     |      network traffic!
+     |  
+     |  getdbobj(self, dbname)
+     |      Gets a Database object corresponding to the database name passed
+     |      in.  This function explicitly will *not* generate network traffic.
+     |      If you have not yet run getdbdescs(), it will fail.
+     |  
+     |  getmessageid(self)
+     |      Returns the message id, including angle brackets.
+     |  
+     |  getresultcode(self)
+     |      Generic function to get a result code.  It will return a list
+     |      consisting of two items: the integer result code and the text
+     |      following.  You will not usually use this function directly.
+     |  
+     |  getstratdescs(self)
+     |      Gets a dict of available strategies.  The key is the strat
+     |      name and the value is the strat description.  This call may
+     |      generate network traffic!
+     |  
+     |  match(self, database, strategy, word)
+     |      Gets matches for a query.  Arguments are database name,
+     |      the strategy (see available ones in getstratdescs()), and the
+     |      pattern/word to look for.  Returns a list of Definition objects.
+     |      If there is no match, an empty list is returned.
+     |      
+     |      Note: database may be '*' which means to search all databases,
+     |      or '!' which means to return matches from the first database that
+     |      has a match.
+     |  
+     |  saveconnectioninfo(self)
+     |      Called by __init__ to handle the initial connection.  Will
+     |      save off the capabilities and messageid.
+     |  
+     |  sendcommand(self, command)
+     |      Takes a command, without a newline character, and sends it to
+     |      the server.
+     |  
+     |  ----------------------------------------------------------------------
+     |  Data and non-method functions defined here:
+     |  
+     |  __doc__ = 'This class is used to establish a connection to ... and the...
+     |      str(object) -> string
+     |      
+     |      Return a nice string representation of the object.
+     |      If the argument is a string, the return value is the same object.
+     |  
+     |  __module__ = 'dictclient'
+     |      str(object) -> string
+     |      
+     |      Return a nice string representation of the object.
+     |      If the argument is a string, the return value is the same object.
+    
+    class Database
+     |  An object corresponding to a particular database in a server.
+     |  
+     |  Methods defined here:
+     |  
+     |  __init__(self, dictconn, dbname)
+     |      Initialize the object -- requires a Connection object and
+     |      a database name.
+     |  
+     |  define(self, word)
+     |      Get a definition from within this database.
+     |      The argument, word, is the word to look up.  The return value is the
+     |      same as from Connection.define().
+     |  
+     |  getdescription(self)
+     |  
+     |  getinfo(self)
+     |      Returns a string of info describing this database.
+     |  
+     |  getname(self)
+     |      Returns the short name for this database.
+     |  
+     |  match(self, strategy, word)
+     |      Get a match from within this database.
+     |      The argument, word, is the word to look up.  The return value is
+     |      the same as from Connection.define().
+     |  
+     |  ----------------------------------------------------------------------
+     |  Data and non-method functions defined here:
+     |  
+     |  __doc__ = 'An object corresponding to a particular database in a serve...
+     |      str(object) -> string
+     |      
+     |      Return a nice string representation of the object.
+     |      If the argument is a string, the return value is the same object.
+     |  
+     |  __module__ = 'dictclient'
+     |      str(object) -> string
+     |      
+     |      Return a nice string representation of the object.
+     |      If the argument is a string, the return value is the same object.
+    
+    class Definition
+     |  An object corresponding to a single definition.
+     |  
+     |  Methods defined here:
+     |  
+     |  __init__(self, dictconn, db, word, defstr=None)
+     |      Instantiate the object.  Requires: a Connection object,
+     |      a Database object (NOT corresponding to '*' or '!' databases),
+     |      a word.  Optional: a definition string.  If not supplied,
+     |      it will be fetched if/when it is requested.
+     |  
+     |  getdb(self)
+     |      Get the Database object corresponding to this definition.
+     |  
+     |  getdefstr(self)
+     |      Get the definition string (the actual content) of this
+     |      definition.
+     |  
+     |  getword(self)
+     |      Get the word this object describes.
+     |  
+     |  ----------------------------------------------------------------------
+     |  Data and non-method functions defined here:
+     |  
+     |  __doc__ = 'An object corresponding to a single definition.'
+     |      str(object) -> string
+     |      
+     |      Return a nice string representation of the object.
+     |      If the argument is a string, the return value is the same object.
+     |  
+     |  __module__ = 'dictclient'
+     |      str(object) -> string
+     |      
+     |      Return a nice string representation of the object.
+     |      If the argument is a string, the return value is the same object.
+
+FUNCTIONS
+    dequote(str)
+        Will remove single or double quotes from the start and end of a string
+        and return the result.
+    
+    enquote(str)
+        This function will put a string in double quotes, properly
+        escaping any existing double quotes with a backslash.  It will
+        return the result.
+
+DATA
+    __file__ = './dictclient.py'
+    __name__ = 'dictclient'
+    version = '1.0'
+
