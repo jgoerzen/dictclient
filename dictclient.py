@@ -18,7 +18,7 @@
 
 import socket, re
 
-version = '1.0'
+version = '1.0.2'
 
 def dequote(str):
     """Will remove single or double quotes from the start and end of a string
