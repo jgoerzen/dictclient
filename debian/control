@@ -1,0 +1,19 @@
+Source: dictclient
+Section: interpreters
+Priority: optional
+Maintainer: John Goerzen <jgoerzen@complete.org>
+Build-Depends-Indep: debhelper (>> 3.0.0), python2.2, python2.2-dev
+Standards-Version: 3.5.2
+
+Package: python2.2-dictclient
+Architecture: all
+Depends: python2.2
+Suggests: dictd
+Description: Python client library for DICT (RFC2229) protocol
+ This is a new library for interacting with Dict servers.
+ It defines three classes -- Connection, Database, and Definition.
+ It supports all common Dict server requests, including definitions,
+ matching, and getting information about available databases,
+ capabilities, etc.  You can use it to communicate to a local
+ or remote dictd database.  The homepage for this package (includes docs)
+ is at gopher://quux.org/1/devel/dictclient.

@@ -1,0 +1,21 @@
+2002-04-18 09:41  jgoerzen
+
+	* dictclient.html, dictclient.txt: Added.
+
+2002-04-18 09:40  jgoerzen
+
+	* COPYING, Makefile, README, dictclient.py, setup.py: Added,
+	updated
+
+2002-04-17 14:14  jgoerzen
+
+	* dictclient.py: [no log message]
+
+2002-04-17 14:06  jgoerzen
+
+	* dictclient.py: [no log message]
+
+2002-04-17 13:51  jgoerzen
+
+	* dictclient.py: Initial add
+

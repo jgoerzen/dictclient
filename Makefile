@@ -5,3 +5,8 @@ doc:
 clean:
 	-rm -f `find . -name "*~"`
 	-rm -f `find . -name "*.pyc"`
+
+changelog:
+	cvs2cl
+	cvs commit ChangeLog
+	rm ChangeLog.bak

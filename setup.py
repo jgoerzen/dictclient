@@ -1,9 +1,8 @@
 #!/usr/bin/env python2.2
 
-# $Id: setup.py,v 1.1 2002/04/18 14:40:44 jgoerzen Exp $
+# $Id: setup.py,v 1.3 2002/04/18 14:51:59 jgoerzen Exp $
 
-# Python-based gopher server
-# Module: installer
+# Python client for DICT protocol.
 # COPYRIGHT #
 # Copyright (C) 2002 John Goerzen
 #
@@ -24,18 +23,15 @@
 
 
 from distutils.core import setup
-import pygopherd.version
+import dictclient
 
-setup(name = "pygopherd",
-      version = pygopherd.version.versionstr,
-      description = pygopherd.version.description,
-      author = pygopherd.version.author,
-      author_email = pygopherd.version.author_email,
-      url = pygopherd.version.homepage,
-      packages = ['pygopherd', 'pygopherd.handlers', 'pygopherd.protocols'],
-      scripts = ['pygopherd.py'],
-      data_files = [ ('/etc/pygopherd', ['conf/pygopherd.conf',
-                                         'conf/mime.types'] ) ],
-      license = pygopherd.version.license
+setup(name = "dictclient",
+      version = "1.0",
+      description = "Client library for the dict protocol",
+      author = "John Goerzen",
+      author_email = 'jgoerzen@complete.org',
+      url = 'gopher://quux.org/1/devel/dictclient',
+      py_modules = ['dictclient'],
+      license = "GPL version 2"
 )
 

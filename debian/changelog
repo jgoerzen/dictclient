@@ -1,0 +1,5 @@
+dictclient (1.0) unstable; urgency=low
+
+  * Initial release.  Closes: #143451.
+
+ -- John Goerzen <jgoerzen@complete.org>  Thu, 18 Apr 2002 06:58:31 -0500
