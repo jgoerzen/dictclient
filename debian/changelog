@@ -1,3 +1,9 @@
+dictclient (1.0.2) unstable; urgency=low
+
+  * Updated Debian package for Python 2.3.
+
+ -- John Goerzen <jgoerzen@complete.org>  Mon, 18 Aug 2003 16:02:57 -0500
+
 dictclient (1.0.1) unstable; urgency=low
 
   * Added a fix for matching.
