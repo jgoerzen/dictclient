@@ -1,6 +1,6 @@
 #!/usr/bin/env python2.2
 
-# $Id: setup.py,v 1.3 2002/04/18 14:51:59 jgoerzen Exp $
+# $Id: setup.py,v 1.4 2002/04/18 17:25:31 jgoerzen Exp $
 
 # Python client for DICT protocol.
 # COPYRIGHT #
@@ -26,7 +26,7 @@ from distutils.core import setup
 import dictclient
 
 setup(name = "dictclient",
-      version = "1.0",
+      version = "1.0.1",
       description = "Client library for the dict protocol",
       author = "John Goerzen",
       author_email = 'jgoerzen@complete.org',

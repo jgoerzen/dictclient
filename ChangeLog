@@ -1,3 +1,41 @@
+2002-04-18 12:25  jgoerzen
+
+	* setup.py, debian/changelog: Updated.
+
+2002-04-18 12:25  jgoerzen
+
+	* ChangeLog: Updated for 1.0.1
+
+2002-04-18 10:59  jgoerzen
+
+	* dictclient.py: Fix for multi-word matches.
+
+2002-04-18 09:55  jgoerzen
+
+	* debian/rules: Fixed a package name problem.
+
+2002-04-18 09:51  jgoerzen
+
+	* setup.py: Fixed to the proper setup.py
+
+2002-04-18 09:51  jgoerzen
+
+	* setup.py: Setup.py: fixed a leftover from pygopherd
+
+2002-04-18 09:50  jgoerzen
+
+	* debian/: conffiles, rules: Updated.
+
+2002-04-18 09:48  jgoerzen
+
+	* ChangeLog, Makefile, debian/changelog, debian/conffiles,
+	debian/control, debian/copyright, debian/cron.d.ex, debian/docs,
+	debian/emacsen-install.ex, debian/emacsen-remove.ex,
+	debian/emacsen-startup.ex, debian/ex.package.doc-base,
+	debian/examples, debian/manpage.1.ex, debian/manpage.sgml.ex,
+	debian/menu.ex, debian/preinst.ex, debian/prerm.ex, debian/rules,
+	debian/watch.ex: Added ChangeLog and debian files.
+
 2002-04-18 09:41  jgoerzen
 
 	* dictclient.html, dictclient.txt: Added.
