@@ -233,7 +233,7 @@ class Connection:
         retval = []
 
         for matchline in self.get100block().split("\n"):
-            matchdict, matchword = matchline.split(" ")
+            matchdict, matchword = matchline.split(" ", 1)
             retval.append(Definition(self, self.getdbobj(matchdict),
                                      dequote(matchword)))
         if self.getresultcode()[0] != 250:
