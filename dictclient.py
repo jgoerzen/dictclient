@@ -61,7 +61,6 @@ class Connection:
 
     def get100dict(self):
         """Used when expecting a dictionary of results."""
-        print "get100dict"
         dict = {}
         for line in self.get100result()[1]:
             key, val = line.split(' ', 1)
@@ -107,12 +106,30 @@ class Connection:
         if not hasattr(self, 'dbobjs'):
             self.dbobjs = {}
 
+        if self.dbobjs.has_key(dbname):
+            return self.dbobjs[dbname]
+
+        # We use self.dbdescs explicitly since we don't want to
+        # generate net traffic with this request!
+
+        if not dbname in self.dbdescs.keys():
+            raise Exception, "Invalid database name '%s'" % dbname
+
+        self.dbobjs[dbname] = Database(self, dbname)
+        return self.dbobjs[dbname]
+
     def sendcommand(self, command):
         self.wfile.write(command + "\n")
 
     def define(self, database, word):
         """Returns a list of Definition objects for each matching
         definition."""
+        self.getdbdescs()               # Prime the cache
+
+        if database != '*' and database != '!' and \
+           not database in self.getdbdescs():
+            raise Exception, "Invalid database '%s' specified" % database
+        
         self.sendcommand("DEFINE " + enquote(database) + " " + enquote(word))
         code = self.getresultcode()[0]
 
@@ -128,11 +145,11 @@ class Connection:
             code, text = self.getresultcode()
             if code != 151:
                 break
-            
+
+            resultword, resultdb = re.search('^"(.+)" (\S+)', text).groups()
             defstr = self.get100block()
-            retval.append(Definition(self, \
-                                     Database(self, database), \
-                                     word, defstr))
+            retval.append(Definition(self, self.getdbobj(resultdb),
+                                     resultword, defstr))
         return retval
 
 
@@ -160,7 +177,7 @@ class Database:
         return self.info
 
 class Definition:
-    def __init__(self, dictconn, db, word, defstr):
+    def __init__(self, dictconn, db, word, defstr = None):
         self.conn = dictconn
         self.db = db
         self.word = word
@@ -170,6 +187,8 @@ class Definition:
         return self.db
 
     def getdefstr(self):
+        if not self.defstr:
+            self.defstr = self.conn.define(self.getdb().getname(), self.word)[0].getdefstr()
         return self.defstr
 
     def getword(self):
