@@ -2,6 +2,7 @@ dictclient (1.0.3.2) unstable; urgency=medium
 
   * Ack NMU.  Closes: #800233, #694764, #616789.
   * Bump standards-version.
+  * Apply patch for Unicode awareness.  Closes: #549586.
 
  -- John Goerzen <jgoerzen@complete.org>  Tue, 14 Feb 2017 19:36:50 -0600
 
