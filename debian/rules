@@ -50,6 +50,7 @@ clean:
 	-$(PYTHON) setup.py clean --all
 
 	dh_clean
+	rm -f *.pyc
 
 install: build
 	dh_testdir
