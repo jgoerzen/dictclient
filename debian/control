@@ -2,18 +2,13 @@ Source: dictclient
 Section: interpreters
 Priority: optional
 Maintainer: John Goerzen <jgoerzen@complete.org>
-Build-Depends-Indep: debhelper (>> 5.0.37.2), python, python-dev (>= 2.3), python-all-dev (>= 2.3.5-11), python-central (>= 0.5)
-Build-Depends: debhelper (>> 5.0.37.2), python-central (>= 0.5)
-XS-Python-Version: >= 2.3
-Standards-Version: 3.5.2
+Build-Depends: debhelper (>=9), dh-python, python-all-dev (>= 2.6.6-3~)
+Standards-Version: 3.9.7
 
 Package: python-dictclient
 Architecture: all
-Conflicts: python2.3-dictclient (<< 1.0.3)
-Replaces: python2.3-dictclient (<< 1.0.3)
 Provides: ${python:Provides}
-Depends: ${python:Depends}
-XB-Python-Version: ${python:Versions}
+Depends: ${misc:Depends}, ${python:Depends}
 Suggests: dictd
 Description: Python client library for DICT (RFC2229) protocol
  This is a new library for interacting with Dict servers.
